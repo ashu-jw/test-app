@@ -1,0 +1,170 @@
+<!--create a dynamic profile home page of a person showing all his posts and option for editing and deleting posts use inline style also-->
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+
+    <title>Profile</title>
+
+    <style>
+      body {
+        background-color: #f1f1f1;
+      }
+
+      .container {
+        width: 100vw;
+        height: 100vh;
+      }
+
+      /* style for the container*/
+        .container1 h1 {
+            font-size: 50px;
+            font-weight: 500;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+      .container1 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
+
+      /* style for the addpost form */
+        .addpost {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: row;
+        }
+
+        .addpost input {
+            width: 300px;
+            height: 50px;
+            border: none;
+            outline: none;
+            border-radius: 5px;
+            margin-top: 20px;
+            display: flex-end;
+        }
+
+        .addpost button {
+            width: 50px;
+            height: 50px;
+            border: none;
+            outline: none;
+            border-radius: 5px;
+            font-size: 20px;
+            font-weight: 500;
+            cursor: pointer;
+            margin-left: 20px;
+            margin-top: 20px;
+        }
+
+        .addpost button:hover {
+            background-color: #1DA1F2;
+            color: #fff;
+        }
+
+        .addpost input:hover {
+            background-color: #1DA1F2;
+            color: #fff;
+        }
+
+        /* style for the logout button */
+        .logout {
+            width: 100px;
+            height: 50px;
+            border: none;
+            outline: none;
+            border-radius: 5px;
+            font-size: 20px;
+            font-weight: 500;
+            cursor: pointer;
+            margin-left: 20px;
+            margin-top: 20px;
+            background-color: #1DA1F2;
+        }
+
+        .logout:hover {
+            color: #fff;
+        }
+
+    /* style for the postArea */
+    .postArea {
+        margin-top: 20px;
+        border: 1px solid #01080d;
+        border-radius: 5px;
+        width : 35%;
+        height: 50%;
+    }
+
+    .post {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-direction: row;
+        margin:10px;
+    }
+
+    .post p {
+        font-size: 20px;
+        font-weight: 500;
+        cursor: pointer;
+        margin-left: 20px;
+        margin-top: 20px;
+    }
+
+    .post input {
+        width: 20px;
+        height: 20px;
+        border: none;
+        outline: none;
+        border-radius: 5px;
+        cursor: pointer;
+        color: #fff;
+    }
+    
+
+
+
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      
+      <div class="container1">
+        <h1>Welcome <%= user[0].username %></h1>
+        <% for(var i=0;i<posts.length;i++){ %>
+        <div class="postArea">
+          
+          <form action="/deletepost" method="POST">
+            <div class="post">
+            <p><%= posts[i].desc %></p>
+            <input type="checkbox" name="postid" value="<%=posts[i].id%>" onChange="this.form.submit()">
+            </div>
+            <input type="hidden" name="userid" value="<%= myid %>"></input>
+          </form>
+        </div>
+        <% } %>
+        <!--Add customized buttons for adding and deleting posts and logout with respective locations-->
+        <form class="addpost" action="/addpost" method="POST">
+          <input
+            type="text"
+            name="desc"
+            placeholder="New Post"
+            autocomplete="off"
+            autofocus="true"
+          />
+          <button type="submit" name="id" value="<%= myid %>">+</button>
+        </form>
+        <form action="/logout" method="POST">
+          <button class="logout" type="submit">Logout</button>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

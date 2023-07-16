@@ -46,10 +46,7 @@ app.post("/signup", (req, res) => {
   db.query(sqlQuery, [req.body.username], (err, result) => {
     if (err) {
       res.send({ err: err });
-    }
-    if (result.length) {
-      res.send({ message: "Username already exists" });
-    } else {
+    } {
       const q = "INSERT INTO users (`username`, `email`,`password`) VALUES (?)";
 
       //hash password

@@ -32,7 +32,7 @@ db.connect((err) => {
 
 //create main route
 app.get("/", (req, res) => {
-  res.sendFile(__dirname + "/index.html");
+  res.render("index");
 });
 
 // create /register get route and send the signup.html file
